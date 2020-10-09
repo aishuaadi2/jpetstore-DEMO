@@ -9,7 +9,7 @@ trigger:
 pr:
   - master
 variables:
-  sonarServiceConnection: 'sonar-ahold'
+  sonarServiceConnection: 'sonar_new'
   sonarProjectKey: 'jpetstore'
   sonarProjectName: 'jpetstore'
   sonarSources: '.'
@@ -22,15 +22,6 @@ variables:
   sonar.java.coveragePlugin: 'jacoco'
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
-  #Build Artifacts
-  publishesArtifactsPath: '/home/vsts/work/1/s/target/'
-  artifactsPath: '/home/vsts/work/1/s/target/jpetstore.war'
-  artifactRepoName: 'jpetstore'
-  artifactVersionType: 'patch'
-  webServer: 'java-sample-demo11'
-  azureServiceConnectionId: 'ahold-poc-demo'
-  azureArtifactName: 'jpetstore'
-  azureFeedPublishName: '765878f8-c954-450c-9d10-10f7effa2b3c'
 stages:
 - stage: JavaBuildPipeline
   displayName: Java CI CD Build Pipeline
@@ -43,7 +34,6 @@ stages:
     - checkout: self
       displayName: CodeCheckout
     - task: Maven@3
-      condition: and(succeeded(), ne(variables['TriggeringArtifactSourceBranchName'], 'merge'))
       displayName: BuildWithMaven
       inputs:
         mavenPomFile: 'pom.xml'
@@ -53,3 +43,12 @@ stages:
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
         publishJUnitResults: false
+
+    - task: UniversalPackages@0
+      inputs:
+        command: 'publish'
+        publishDirectory: '$(Build.ArtifactStagingDirectory)'
+        feedsToUsePublish: 'internal'
+        vstsFeedPublish: '8771f6eb-0631-4b2c-b355-e2ad3eace375/6064a316-e6f7-4965-83a4-c76d621d325f'
+        vstsFeedPackagePublish: 'Jpetstore'
+        versionOption: 'patch'
