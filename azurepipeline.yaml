@@ -45,15 +45,13 @@ stages:
         sonarQubeRunAnalysis: false
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml' 
-
-
     - task: UniversalPackages@0
       inputs:
         command: 'publish'
-        publishDirectory: '$(Build.ArtifactStagingDirectory)'
+        publishDirectory: '/home/vsts/work/1/s/target/jpetstore.war'
         feedsToUsePublish: 'internal'
         vstsFeedPublish: '8771f6eb-0631-4b2c-b355-e2ad3eace375/6064a316-e6f7-4965-83a4-c76d621d325f'
-        vstsFeedPackagePublish: 'jpetstore.war'
+        vstsFeedPackagePublish: 'jpetstore'
         versionOption: 'patch'
 
     - task: SonarQubePrepare@4
