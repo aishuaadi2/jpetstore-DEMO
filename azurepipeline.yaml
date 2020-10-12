@@ -57,10 +57,18 @@ stages:
         versionOption: 'patch'
 
     - task: SonarQubePrepare@4
+      displayName: SonarqubeInitial
       inputs:
-         SonarQube: 'sonar_new'
-         scannerMode: 'CLI'
-         configMode: 'file'
+        SonarQube: $(sonarServiceConnection)
+        scannerMode: 'CLI'
+        configMode: 'manual'
+        cliProjectKey: $(sonarProjectKey)
+        cliProjectName: $(sonarProjectName)
+        cliSources: $(sonarSources)
+        extraProperties: |
+          sonar.java.source=$(sonarJavaSource)
+          sonar.java.binaries=$(sonarJavaBinaries)
+
     - task: SonarQubeAnalyze@4
       displayName: SonarAnalysis
 
