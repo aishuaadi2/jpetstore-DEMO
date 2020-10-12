@@ -9,19 +9,7 @@ trigger:
 pr:
   - master
 variables:
-  sonarServiceConnection: 'sonar_new'
-  sonarProjectKey: 'jpetstore'
-  sonarProjectName: 'jpetstore'
-  sonarSources: '.'
-  sonarJavaSource: '.'
-  sonarJavaBinaries: '.'
-  sonar.junit.reportsPath: 'target/surefire-reports'
-  sonar.surefire.reportsPath: 'target/surefire-reports'
-  sonar.jacoco.reportPath: 'target/jacoco.exec'
-  sonar.binaries: 'target/classes'
-  sonar.java.coveragePlugin: 'jacoco'
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+- group: jpetstore_variable_group
 stages:
 - stage: JavaBuildPipeline
   displayName: Java CI CD Build Pipeline
