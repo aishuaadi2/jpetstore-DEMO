@@ -10,6 +10,20 @@ pr:
   - master
 variables:
 - group: jpetstore_variable_group
+parameters:
+- name: hcl_app_scan
+  type: boolean
+  default: false
+  values: 
+  - true
+  - false
+
+- name: ignite_testing
+  type: boolean
+  default: false
+  values: 
+  - true
+  - false
 stages:
 - stage: JavaBuildPipeline
   displayName: Java CI CD Build Pipeline
