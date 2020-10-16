@@ -1,4 +1,4 @@
-#Java
+#Java app
 #Checkout,Codescan,QualityCheck,Build,UploadArtifacts and Deploy To Webapp
 name: $(build.sourceBranchName)-$(Date:yyyyMMdd)$(Rev:.r)
 trigger:
