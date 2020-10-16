@@ -47,6 +47,23 @@ stages:
         sonarQubeRunAnalysis: false
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml' 
+    #HCL APP SCAN
+    - task: HCLAppScan@1
+      condition: ${{ parameters.hcl_app_scan}}
+      inputs:
+        AppSecTestService: 'hcl_appscan'
+        applications: '07cd53c8-1714-426c-9441-53eec872f01c'
+        scanname: 'hcl_app_scan'
+        scantype: 'static'
+        scanloc: '/home/vsts/work/1/s'
+        ScanSpeedOptions: 'simple'
+    # IBM Ignite Testing for quality and test
+    - task: PowerShell@2
+      condition: ${{ parameters.ignite_testing}}
+      displayName: 'IBM Ignite Quality and Testing'
+      inputs:
+        targetType: filePath
+        filePath: './ignite_test_script.ps1'   
     - task: UniversalPackages@0
       inputs:
         command: 'publish'
