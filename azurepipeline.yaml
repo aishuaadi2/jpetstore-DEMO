@@ -92,3 +92,10 @@ stages:
     - task: SonarQubePublish@4
       inputs:
         pollingTimeoutSec: '300'
+
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'petstore'
+        repository: 'petstorerepo'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
